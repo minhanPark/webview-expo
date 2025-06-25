@@ -1,7 +1,7 @@
 import NetInfo from "@react-native-community/netinfo";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import WebView from "react-native-webview";
 
@@ -13,6 +13,10 @@ export default function Index() {
       setIsConnected(state.isConnected ?? false);
     });
   }, []);
+
+  const handleButton = () => {
+    console.log("모바일 로그!!");
+  };
 
   if (!isConnected) {
     return (
@@ -27,13 +31,18 @@ export default function Index() {
     );
   }
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "red" }} edges={["top"]}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "red" }}
+      edges={["top", "bottom"]}
+    >
       <StatusBar style="light" />
       <WebView
+        webviewDebuggingEnabled={true}
         source={{
           uri: "http://192.168.0.10:3000",
         }}
       />
+      <Button title="모바일 버튼" onPress={handleButton} />
     </SafeAreaView>
   );
 }
